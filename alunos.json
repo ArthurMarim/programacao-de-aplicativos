@@ -5,5 +5,12 @@
         "turma": "2 ano",
         "idade": 16,
         "cpf": "2999999"
+    },
+    {
+        "nome": "arthur",
+        "telefone": "44999795863",
+        "turma": "2 ano",
+        "idade": 17,
+        "cpf": "12345678"
     }
 ]

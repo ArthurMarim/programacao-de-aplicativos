@@ -54,62 +54,72 @@ def atualizar(): # Cria uma função chamada atualizar que pode criar comando a 
         
     cpf_busca = int(input("Digite o CPF do aluno que deseja editar: ")) # Na variável cpf_busca, terá um int que só aceita respostas com numeros, terá um input que mostrará o que está dentro dos parenteses.
     
-    for aluno in alunos:
-        if aluno['cpf'] == cpf_busca:
-            print(f"Editando dados de: {aluno['nome']}")
-            aluno['nome'] = input(f"Novo Nome ({aluno['nome']}): ") or aluno['nome']
-            aluno['telefone'] = input(f"Novo Telefone ({aluno['telefone']}): ") or aluno['telefone']
-            aluno['turma'] = input(f"Nova Turma ({aluno['turma']}): ") or aluno['turma']
-            aluno['idade'] = int(input(f"Nova Idade ({aluno['idade']}): ") or aluno['idade'])
-            aluno['cpf'] = input(f"Novo CPF ({aluno['cpf']}): ") or aluno['cpf']
+    for aluno in alunos: # Cria um laço de repetição que percorre cada aluno da lista.
+        if aluno['cpf'] == cpf_busca: # Serve para se a variável Aluno for cpf e ser igual a variável cpf_busca, apareca a linha de baixo
+            print(f"Editando dados de: {aluno['nome']}") # Se a linha de cima for verdadeira, aparece essa linha
+            aluno['nome'] = input(f"Novo Nome ({aluno['nome']}): ") or aluno['nome'] # pedir um novo nome ao usuário. Se ele digitar algo, o nome é atualizado Se apenas pressionar Enter, o nome antigo é mantido.
+            aluno['telefone'] = input(f"Novo Telefone ({aluno['telefone']}): ") or aluno['telefone'] # Solicita um novo telefone caso nada seja digitado, o telefone atual continua o mesmo.
+            aluno['turma'] = input(f"Nova Turma ({aluno['turma']}): ") or aluno['turma'] # pede uma nova turma para o aluno se o campo ficar vazio, a turma antiga permanece.
+            aluno['idade'] = int(input(f"Nova Idade ({aluno['idade']}): ") or aluno['idade']) # solicita uma nova idade. O valor digitado é convertido para número inteiro com int(). Se o usuário não digitar nada, a idade atual é mantida.
+            aluno['cpf'] = input(f"Novo CPF ({aluno['cpf']}): ") or aluno['cpf'] # pede um novo CPF. Se o usuário apenas pressionar Enter, o CPF antigo continua armazenado.
             
-            with open(BANCO_DADOS, 'w', encoding='utf-8') as f:
-                json.dump(alunos, f, indent=4, ensure_ascii=False)
-            print("Dados atualizados com sucesso!")
-            return
+            with open(BANCO_DADOS, 'w', encoding='utf-8') as f: # Open abre o arquivo para a reescrever por cima, acha a função banco_dados e o encoding='utf-8' serve para mostrar que o texto está em portugues, e o AS serve para criar uma espécie de apelido, que no caso é o f.
+                json.dump(alunos, f, indent=4, ensure_ascii=False) # Json.dump guarda a lista de alunos e salva no arquivo f
+            print("Dados atualizados com sucesso!") # Print para mostrar o que está entre parenteses e aspas se o nome nao estiver cadastrado
+            return # Interrompe a ação do código.
             
-    print("Aluno não encontrado.")
+    print("Aluno não encontrado.") # Print para mostrar o que está entre parenteses e aspas 
 
-def excluir():
-    print("\n--- Excluir Aluno ---")
-    if not os.path.exists(BANCO_DADOS):
-        print("Nenhum aluno cadastrado no sistema.")
-        return
+def excluir(): # Cria uma função chamada atualizar que pode criar comando a serem executados depois.
+    print("\n--- Excluir Aluno ---") # Print para mostrar o que está entre parenteses e aspas 
 
-    with open(BANCO_DADOS, 'r', encoding='utf-8') as f:
-        alunos = json.load(f)
+    if not os.path.exists(BANCO_DADOS): # Serve para SE o alunos.json não existir mostrar a linha de baixo.
+        print("Nenhum aluno cadastrado no sistema.") # Se a linha de cima for verdadeira, aparecerá esse print.
+        return # Interrompe a ação do código.
+
+    with open(BANCO_DADOS, 'r', encoding='utf-8') as f: # Open abre o arquivo para leitura, acha a função banco_dados e o encoding='utf-8' serve para mostrar que o texto está em portugues, e o AS serve para criar uma espécie de apelido, que no caso é o f.
+        alunos = json.load(f) # # Ele armazena os dados dentro do arquivo JSON e armazena em uma variavel que é alunos.
         
-    id_busca = int(input("Digite o ID do aluno que deseja remover: "))
+    id_busca = int(input("Digite o ID do aluno que deseja remover: ")) # Na variável id_busca, terá um int que só aceita respostas com numeros, terá um input que mostrará o que está dentro dos parenteses.
     
-    nova_lista = [a for a in alunos if a['id'] != id_busca]
     
-    if len(nova_lista) < len(alunos):
-        with open(BANCO_DADOS, 'w', encoding='utf-8') as f:
+    nova_lista = [a for a in alunos if a['id'] != id_busca] # 
+    
+    if len(nova_lista) < len(alunos): # Json.dump guarda a lista de alunos e salva no ar quivo F no formato json
+        with open(BANCO_DADOS, 'w', encoding='utf-8') as f: # Open abre o arquivo para leitura, acha a função banco_dados e o encoding='utf-8' serve para mostrar que o texto está em portugues, e o AS serve para criar uma espécie de apelido, que no caso é o f.
             json.dump(nova_lista, f, indent=4, ensure_ascii=False)
-        print("Aluno removido com sucesso!")
-    else:
-        print("Aluno não encontrado.")
+        print("Aluno removido com sucesso!") # Print para mostrar o que está entre parenteses e aspas 
 
-def menu():
-    if not os.path.exists(BANCO_DADOS):
-        with open(BANCO_DADOS, 'w', encoding='utf-8') as f:
-            json.dump([], f)
+    else: # Caso o IF não de certo vai para o else
+        print("Aluno não encontrado.") # Print para mostrar o que está entre parenteses e aspas 
 
-    while True:
-        print("\n=== SISTEMA ESCOLAR ===")
-        print("1. Cadastrar Aluno")
-        print("2. Listar Alunos")
-        print("3. Atualizar Aluno")
-        print("4. Excluir Aluno")
-        print("5. Sair")
+
+def menu(): # Cria uma função chamada atualizar que pode criar comando a serem executados depois.
+    if not os.path.exists(BANCO_DADOS): # Serve para SE o alunos.json não existir mostrar a linha de baixo.
+        with open(BANCO_DADOS, 'w', encoding='utf-8') as f:  # Open abre o arquivo para a reescrever por cima, acha a função banco_dados e o encoding='utf-8' serve para mostrar que o texto está em portugues, e o AS serve para criar uma espécie de apelido, que no caso é o f.
+            json.dump([], f)  # Json.dump guarda a lista de alunos e salva no arquivo f
+
+    while True: # Enquanto for verdadeiro mostrará os prints abaixo
+        print("\n=== SISTEMA ESCOLAR ===") # Print para mostrar o que está entre parenteses e aspas e \n para quebrar a linha 
+
+        print("1. Cadastrar Aluno") # Print para mostrar o que está entre parenteses e aspas 
+
+        print("2. Listar Alunos") # Print para mostrar o que está entre parenteses e aspas 
+
+        print("3. Atualizar Aluno") # Print para mostrar o que está entre parenteses e aspas 
+
+        print("4. Excluir Aluno") # Print para mostrar o que está entre parenteses e aspas 
+
+        print("5. Sair") # Print para mostrar o que está entre parenteses e aspas 
+
         
-        opcao = input("Escolha uma opção: ")
+        opcao = input("Escolha uma opção: ") # Variável com um input na frente para mostrar o que está dentro das aspas
         
-        if opcao == '1': cadastrar()
-        elif opcao == '2': listar()
-        elif opcao == '3': atualizar()
-        elif opcao == '4': excluir()
-        elif opcao == '5': break
-        else: print("Opção inválida!")
+        if opcao == '1': cadastrar() # Se a variavel opcao for igual a 1 ira para cadastrar
+        elif opcao == '2': listar() # Caso a variavel opcao for igual a 2 aparecerá listar
+        elif opcao == '3': atualizar() # Caso a variavel opcao for igual a 3 aparecerá listar
+        elif opcao == '4': excluir() # Caso a variavel opcao for igual a 4 aparecerá excluir
+        elif opcao == '5': break # Caso a variavel opcao for igual a 5 irá acabar o código
+        else: print("Opção inválida!") # Caso não seja nenhuma das opções anteriores aparecerá esse print com o que está dentro das aspas.
 
 menu() # Chama a função
