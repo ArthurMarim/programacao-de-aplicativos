@@ -18,6 +18,14 @@ comando_inserir = f'''INSERT INTO alunos (nome_aluno, telefone_aluno, turma_alun
 
 cursor.execute(comando_inserir)
 conexao.commit()
-conexao.close()
 
 print ("Seus dados foram atualizados")
+cursor = conexao.cursor()
+cursor.execute('''SELECT * FROM alunos''')
+todos_alunos = cursor.fetchall()
+if not todos_alunos:
+    print("Nenhum aluno encontrado")
+else:
+    for aluno in todos_alunos:
+        print(f"id: {aluno[0]}, nome: {aluno[1]}, telefone: {aluno[2]}, turma: {aluno[3]}, idade: {aluno[4]}, cpf: {aluno[5]}")
+conexao.close()
