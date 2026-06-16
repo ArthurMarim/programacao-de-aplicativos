@@ -29,3 +29,14 @@ else:
     for aluno in todos_alunos:
         print(f"id: {aluno[0]}, nome: {aluno[1]}, telefone: {aluno[2]}, turma: {aluno[3]}, idade: {aluno[4]}, cpf: {aluno[5]}")
 conexao.close()
+def atualizar_alunos():
+    conexao = sqlite3.connect ('escola_demonstracao.db')
+    cursor = conexao.cursor()
+    id_busca = int(input("Digite seu ID: "))
+    cursor.execute(f'''SELECT*FROM alunos WHERE ID = {id_busca}''')
+    aluno = cursor.fetchone()
+    if not aluno:
+        print ("Aluno não encontrado")
+        return
+    conexao.close()
+    
