@@ -36,7 +36,7 @@ def listar():
         print ("Nenhum aluno encontrado.")
     else:
         for professor in todos_professores:
-            print (f"Nome: {todos_professores[0]}, Matéria: {todos_professores[1]}, Idade: {todos_professores[2]}, CPF: {todos_professores[3]}, Salário: {todos_professores[4]}, {todos_professores[5]}")
+            print (f"ID: {professor[0]}, Nome: {professor[1]}, Matéria: {professor[2]}, Idade: {professor[3]}, CPF: {professor[4]}, Salário: {professor[5]},Escola: {professor[6]}")
     conexao.close()
 
 def atualizar():
@@ -57,7 +57,7 @@ def atualizar():
         novo_cpf = input("Digite seu CPF atualizado: ")
         novo_salario = input("Digite seu novo salário: ")
         nova_escola = input("Digite sua nova escola: ")
-        comando = f'''UPDATE professores SET nome = '{novo_nome}', materia = '{nova_materia}', idade = {nova_idade}
+        comando = f'''UPDATE professores SET nome = '{novo_nome}', materia = '{nova_materia}', idade = '{nova_idade}',
                                                      cpf = '{novo_cpf}', salario = '{novo_salario}', escola = '{nova_escola}'
                                                      WHERE id = {id_busca}'''
     cursor.execute(comando)
