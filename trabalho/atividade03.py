@@ -45,5 +45,6 @@ def criar_tabelas():
 
     conexao.commit()
     conexao.close()
-
+criar_tabelas()
+print ("Tabelas criadas com sucesso!")
 # estava dando erro porque estava puxando uma referencia de uma tabela que nao existe

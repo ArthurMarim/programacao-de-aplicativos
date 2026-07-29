@@ -33,6 +33,6 @@ def vincular_aluno_turma():
         print("Erro no banco de dados!")
     finally:
         conexao.close()
-
+vincular_aluno_turma()
 #  A conversão int() gera um ValueError 
 # Falta um execept para capturar o erro de escrita
