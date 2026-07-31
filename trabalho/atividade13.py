@@ -14,17 +14,21 @@
     
 # import sqlite3
 
+import sqlite3
+
 def verificar_registros():
     conexao = sqlite3.connect('sistema_escola.db')
     cursor = conexao.cursor()
 
     cursor.execute("SELECT * FROM alunos")
 
-    dados = cursor.fetchall()
+    registros = cursor.fetchall()
 
-    print("Primeiro print:", dados)
-    print("Segundo print:", dados)
+    print("Primeiro print:", registros)
+    print("Segundo print:", registros)
 
     conexao.close()
+
+verificar_registros()
 
 #  O fetchall() só consegue pegar os dados uma vez, depois disso o cursor fica vazio.

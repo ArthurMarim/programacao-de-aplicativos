@@ -15,21 +15,22 @@
 
 import sqlite3
 
-lista = [
-    ("Ana", 1),
-    ("Carlos", 1),
-    ("Beatriz", 2)
-]
+def cadastrar_lista_alunos():
+    lista = [("Ana", 1), ("Carlos", 1), ("Beatriz", 2)]
 
-conexao = sqlite3.connect("siste_escola.db")
-cursor = conexao.cursor()
+    conexao = sqlite3.connect('sistema_escola.db')
+    cursor = conexao.cursor()
 
-cursor.executemany(
-    "INSERT INTO alunos (nome, id_turma) VALUES (?, ?)",
-    lista
-)
+    cursor.executemany(
+        "INSERT INTO alunos (nome, id_turma) VALUES (?, ?)",
+        lista
+    )
 
-conexao.commit()
-conexao.close()
+    conexao.commit()
+    conexao.close() 
+
+    print("Alunos cadastrados com sucesso!")
+
+cadastrar_lista_alunos()
 
 # O erro foi que usou o comando execute() ao invés de executemany().
