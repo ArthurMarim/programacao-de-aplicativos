@@ -33,13 +33,13 @@ def cadastrar_medico():
                     nome_medico TEXT NOT NULL,
                     crm_medico TEXT UNIQUE NOT NULL,
                     id_hospital INTEGER,
-                    FOREIGN KEY (id_hospital) REFERENCES hospital(id)
+                    FOREIGN KEY (id_hospital) REFERENCES hospital(id_hospital)
                     )
                     '''                    
                     )
     nome_medico = input("Digite qual o seu nome: ")
-    crm_medico = input("Digite qual o seu CRM: ")
-    id_hospital = input("Qual o ID do seu hospital: ")
+    crm_medico = int(input("Digite qual o seu CRM: "))
+    id_hospital = int(input("Qual o ID do seu hospital: "))
 
     comando_inserir = f'''INSERT INTO medico (nome_medico, crm_medico, id_hospital)
                           VALUES ('{nome_medico}','{crm_medico}','{id_hospital}')'''

@@ -4,7 +4,7 @@ conexao = sqlite3.connect('sistema_hospital.db')
 cursor = conexao.cursor()
 
 cursor.execute('''
-     DROP TABLE hospital
+     DROP TABLE medico
 ''')
 
 conexao.commit()
